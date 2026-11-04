@@ -1,0 +1,13 @@
+digraph A { rankdir=LR; bgcolor="white"; nodesep=0.4; fontname="Inter";
+node [shape=box style="rounded,filled" fontname="Inter" fontsize=12 margin="0.2,0.12" color="#2D5BD7" fillcolor="#EEF2FC"];
+edge [fontname="Inter" fontsize=10 color="#444444"];
+ui [label="Cliente / UI\n(tela de cadastro)" fillcolor="#F2F2F2" color="#888888"];
+c [label="ClienteController\nvalida formato (@Valid)"]; s [label="ClienteService\nregras: CPF válido,\nCPF único, maioridade"];
+r [label="ClienteRepository\n(Spring Data JPA)"]; db [label="Banco H2" shape=cylinder fillcolor="#F2F2F2" color="#888888"];
+m [label="Model / Domain\nCliente, Endereco, Cpf" fillcolor="#E8F5E9" color="#2E7D32"];
+dto [label="DTO + Mapper\nClienteRequest / Response" fillcolor="#FFF8E1" color="#B59B3A"];
+ex [label="GlobalExceptionHandler\n400 · 404 · 409 · 422" fillcolor="#FDECEA" color="#C62828"];
+ui -> c [label="POST /clientes"]; c -> s [label="DTO"]; s -> r [label="entidade"]; r -> db [label="SQL"];
+s -> m [style=dashed label="usa"]; c -> dto [style=dashed]; s -> dto [style=dashed]; s -> ex [style=dotted label="exceções"]; ex -> ui [style=dotted label="erro JSON"];
+{rank=same; s; m} {rank=same; c; dto}
+}
